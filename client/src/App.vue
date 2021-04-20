@@ -12,6 +12,11 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+
+  async mounted() {
+    const data = await fetch('/api/posts');
+    console.log(data.json());
   }
 }
 </script>
