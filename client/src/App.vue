@@ -1,19 +1,28 @@
 <template>
   <div id="app">
+    <div class="header">
+      <div class="container">
+        <img src="@/assets/img/logo.svg" alt="logo" class="header-logo" />
+      </div>
+    </div>
 
+    <div class="container main-container">
+      <list-posts></list-posts>
+    </div>
   </div>
 </template>
 
 <script>
 
+
+import ListPosts from "./components/ListPosts";
+
+
 export default {
-  name: 'App',
+  name: "App",
 
-  async mounted() {
-    const data = await fetch('/api/posts');
-    console.log(data.json());
-  }
-}
+  components: {
+    ListPosts,
+  },  
+};
 </script>
-
-<style src="./css/style.css"></style>

@@ -23,8 +23,10 @@ async function parsePosts(url, elems) {
 
             for (let index = 0; index < titles.length; index++) {
                 posts.push({
+                    name: elems.name,
                     title: titles[index],
-                    link: links[index]
+                    link: links[index],
+                    url: elems.url
                 });
             }
 
