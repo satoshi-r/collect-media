@@ -12,14 +12,14 @@
     </div>
 
     <a
-      v-for="(post, idx) in posts"
+      v-for="(post, idx) in shufflePosts"
       :key="idx"
       :href="post.link"
       class="post"
       target="_blank"
     >
       <div class="post-source">
-        <img :src="icons[post.name]" alt="icon" class="post-source-icon" />
+        <img :src="allSources[post.name].icon" alt="icon" class="post-source-icon" />
         <div class="post-source-link">{{ urlToDomain(post.url) }}</div>
       </div>
       <div class="post-title">
@@ -30,12 +30,8 @@
 </template>
 
 <script>
-import api from "@/api";
-import iconMeduza from "@/assets/img/meduza.png";
-import iconKommersant from "@/assets/img/kommersant.jpg";
-import iconRt from "@/assets/img/rt.png";
-import iconRbk from "@/assets/img/rbk.jpg";
-import iconLenta from "@/assets/img/lenta.png";
+
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
@@ -43,26 +39,17 @@ export default {
       data: null,
       posts: null,
       loading: true,
-
-      icons: {
-        meduza: iconMeduza,
-        kommersant: iconKommersant,
-        rt: iconRt,
-        rbk: iconRbk,
-        lenta: iconLenta,
-      },
     };
   },
 
   async mounted() {
-    this.posts = await api.getPosts();
-    if (this.posts) {
-      this.posts = this.shufflePosts;
-      this.loading = false;
-    }
+    await this.fetchPosts();
+    this.loading = false;
   },
 
   methods: {
+    ...mapActions(["fetchPosts"]),
+
     urlToDomain(url) {
       const el = document.createElement("a");
       el.href = url;
@@ -96,9 +83,11 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["allPosts", "allSources"]),
+
     shufflePosts() {
-      let currentIndex = this.posts.length,
-        array = this.posts,
+      let currentIndex = this.allPosts.length,
+        array = this.allPosts,
         temporaryValue,
         randomIndex;
 
