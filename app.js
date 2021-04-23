@@ -1,7 +1,7 @@
-const config = require('./config');
-const parsePosts = require('./parser/parsePosts');
 const express = require('express');
 const path = require('path');
+const config = require('./config');
+const parsePosts = require('./parser/parsePosts');
 
 const port = 3000;
 const app = express();
@@ -21,5 +21,5 @@ const server = app.listen(port, (err) => {
     if (err) {
         console.error(err);
     }
-    console.log(`Server has been started on http://localhost:${server.address().port}`)
+    console.log(`Server has been started on http://localhost:${server.address().port}`);
 });
