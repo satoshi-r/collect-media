@@ -19,11 +19,5 @@ export default {
         allPosts(state) {
             return state.posts;
         },
-
-        // filteredPosts(state, sources) {
-        //     return state.posts.filter(post => {
-
-        //     })
-        // }
     }
 }

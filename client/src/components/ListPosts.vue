@@ -17,6 +17,7 @@
       :href="post.link"
       class="post"
       target="_blank"
+      :data-source="allSources[post.name].name"
     >
       <div class="post-source">
         <img :src="allSources[post.name].icon" alt="icon" class="post-source-icon" />
