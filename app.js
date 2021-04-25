@@ -1,5 +1,4 @@
 const express = require('express');
-const { get } = require('http');
 const path = require('path');
 const config = require('./config');
 const parsePosts = require('./parser/parsePosts');
@@ -16,7 +15,7 @@ app.get('/api/posts', async (req, res) => {
     res.status(200).json(posts);
 });
 
-app.use(express.static(path.resolve(__dirname, 'client')));
+app.use(express.static(path.resolve(__dirname, 'client/dist/index.html')));
 
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client/dist/index.html'));
