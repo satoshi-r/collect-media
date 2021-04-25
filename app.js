@@ -3,7 +3,7 @@ const path = require('path');
 const config = require('./config');
 const parsePosts = require('./parser/parsePosts');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.get('/api/posts', async (req, res) => {
