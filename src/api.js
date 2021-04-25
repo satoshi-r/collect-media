@@ -1,7 +1,7 @@
 class Api {
     async getPosts() {
         try {
-            const data = await fetch('/api/posts');
+            const data = await fetch('https://collect-media.herokuapp.com/api/posts');
             return data.json();
         } catch (error) {
             console.error(error);
