@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div v-if="loading" class="loading">
+    <div v-if="isLoading" class="loading">
       <div
         v-for="item of calcCountLoaderItems"
         :key="item"
@@ -39,52 +39,26 @@ export default {
     return {
       data: null,
       posts: null,
-      loading: true,
     };
   },
 
   async mounted() {
     await this.fetchPosts();
-    this.loading = false;
+    this.setLoading(false);
   },
 
   methods: {
-    ...mapActions(["fetchPosts"]),
+    ...mapActions(["fetchPosts", "setLoading"]),
 
     urlToDomain(url) {
       const el = document.createElement("a");
       el.href = url;
       return el.hostname;
     },
-
-    dividedPosts() {
-      const arr = [];
-      const count = 20;
-
-      const countParts = parseInt(this.posts.length / count);
-      let prevIndex = 0;
-
-      for (let i = 0; i < countParts; i++) {
-        arr.push({
-          isSend: false,
-          data: this.posts.splice(prevIndex, count),
-        });
-
-        prevIndex += count;
-      }
-
-      arr.forEach((obj, i) => {
-        if (obj.data.length == 0) {
-          delete arr[i];
-        }
-      });
-
-      return arr;
-    },
   },
 
   computed: {
-    ...mapGetters(["allPosts", "allSources"]),
+    ...mapGetters(["allPosts", "allSources", "isLoading"]),
 
     shufflePosts() {
       let currentIndex = this.allPosts.length,

@@ -5,6 +5,7 @@
       <img :src="source.icon" alt="icon" class="filter-item-icon" />
       <div class="filter-item-title">{{ source.name }}</div>
       <div
+        :class="(isLoading) ? 'disabled' : ''"
         class="switcher active"
         @click="filterSources($event, source.name)"
       ></div>
@@ -33,7 +34,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["allSources"]),
+    ...mapGetters(["allSources", "isLoading"]),
   },
 };
 </script>
